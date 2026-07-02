@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ücretsiz Fiyat Hesapla | Claro Temizlik</title>
+    <!-- style.css üzerinden ortak tasarımı kullanmaya devam ediyoruz -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- NAVBAR (Tüm sayfalarla aynı) -->
+    <nav class="claro-navbar">
+        <a href="index.html" class="navbar-logo"><img src="claro-logo.png" alt="Claro" class="site-logo"></a>
+        <div class="nav-menu">
+            <a href="index.html" class="nav-link">ANA SAYFA</a>
+        </div>
+        <div class="nav-right"><a href="fiyat-hesapla.html" class="btn-main">Fiyat Hesapla</a></div>
+    </nav>
+
+    <!-- HESAPLAMA ALANI (Sadeleştirilmiş) -->
+    <div class="calc-page-wrapper">
+        <div class="calc-container">
+            <div class="calc-header">
+                <h1>🧹 Fiyat Hesaplayıcı</h1>
+            </div>
+
+            <div class="calc-content">
+                <label>Hizmet Türü</label>
+                <select id="service" onchange="showBox()">
+                    <option value="">-- Seçiniz --</option>
+                    <option value="home">Ev Temizliği</option>
+                    <option value="office">Ofis Temizliği</option>
+                </select>
+
+                <!-- Ev Kutusu (Örnek: İhtiyaç fazlası kutuları buradan silebilirsin) -->
+                <div class="box" id="homeBox">
+                    <label>Ev Büyüklüğü</label>
+                    <select id="homeType">
+                        <option value="3500">1+1</option>
+                        <option value="4800">3+1</option>
+                    </select>
+                    <button class="btn-calculate" onclick="calcHome()">Hesapla</button>
+                    <div class="result" id="homeResult"></div>
+                    <button class="whatsapp-button" onclick="sendWhatsApp('home')">WhatsApp'tan Teklif Al</button>
+                </div>
+
+                <!-- Diğer box'lar da aynı sadelikte eklenebilir -->
+            </div>
+        </div>
+    </div>
+
+<script>
+// Sadece aktif olan fonksiyonları tutuyoruz
+function showBox() {
+    let v = document.getElementById("service").value;
+    document.querySelectorAll(".box").forEach(b => b.classList.remove("active"));
+    document.getElementById(v + "Box")?.classList.add("active");
+}
+
+function calcHome() {
+    // Hesaplama mantığı burada kalıyor
+    let total = parseFloat(document.getElementById("homeType").value);
+    document.getElementById("homeResult").innerHTML = 'Tahmini Fiyat: ' + total + ' TL';
+    document.getElementById("homeResult").classList.add("show");
+}
+
+function sendWhatsApp(type) {
+    let price = document.getElementById(type + "Result").innerText;
+    let msg = encodeURIComponent("Merhaba, " + type + " için " + price + " fiyat aldım, randevu istiyorum.");
+    window.open("https://wa.me/905352866434?text=" + msg, "_blank");
+}
+</script>
+</body>
+</html>
