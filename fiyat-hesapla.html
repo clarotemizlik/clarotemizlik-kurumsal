@@ -8,107 +8,128 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .calc-page-wrapper { padding: 60px 20px; background: #f8fafc; min-height: 80vh; display: flex; justify-content: center; align-items: flex-start; }
-        .calc-container { background: white; width: 100%; max-width: 500px; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
-        .calc-header h1 { color: #0b457f; font-size: 1.6rem; text-align: center; margin-bottom: 30px; }
-        .box { display: none; flex-direction: column; gap: 15px; margin-top: 20px; }
-        .box.active { display: flex; }
-        label { font-weight: 600; color: #334155; }
-        select, input { padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 1rem; }
-        .btn-calculate { background: #0b457f; color: white; padding: 14px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .btn-calculate:hover { background: #073563; }
-        .result { padding: 15px; background: #eefbff; border: 1px solid #17a2b8; border-radius: 10px; text-align: center; font-weight: 700; color: #0b457f; display: none; }
+        body { font-family: 'Poppins', sans-serif; background: #f8fafc; padding: 20px; }
+        .container { max-width: 600px; margin: 40px auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #0b457f; font-size: 1.8rem; }
+        label { display: block; font-weight: 600; margin: 15px 0 8px; color: #334155; }
+        select, input { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 1rem; }
+        button { background: #0b457f; color: white; border: none; padding: 15px; border-radius: 10px; width: 100%; font-weight: 600; cursor: pointer; margin-top: 20px; transition: 0.3s; }
+        button:hover { background: #073563; }
+        .box { display: none; margin-top: 20px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 15px; background: #fdfdfd; }
+        .box.active { display: block; }
+        .result { margin-top: 20px; padding: 15px; background: #eefbff; border: 1px solid #17a2b8; border-radius: 10px; text-align: center; font-weight: 700; color: #0b457f; display: none; }
         .result.show { display: block; }
-        .whatsapp-button { background: #25d366; color: white; padding: 12px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; text-decoration: none; text-align: center; margin-top: 10px; }
+        .whatsapp-button { background: #25d366 !important; margin-top: 15px; }
+        .info-box { background: #eff6ff; padding: 10px; border-radius: 8px; font-size: 0.9rem; color: #1e40af; margin-top: 10px; }
+        .extras-line { display: flex; flex-wrap: wrap; gap: 10px; margin: 10px 0; }
+        .extras-line label { font-size: 0.85rem; font-weight: 400; width: 45%; }
     </style>
 </head>
 <body>
 
-    <nav class="claro-navbar">
-        <a href="index.html" class="navbar-logo"><img src="claro-logo.png" alt="Claro" class="site-logo"></a>
-        <div class="nav-menu">
-            <a href="index.html" class="nav-link">ANA SAYFA</a>
-        </div>
-        <div class="nav-right"><a href="fiyat-hesapla.html" class="nav-btn">Ücretsiz Fiyat Hesapla</a></div>
-    </nav>
-
-    <div class="calc-page-wrapper">
-        <div class="calc-container">
-            <div class="calc-header">
-                <h1>🧹 Fiyat Hesaplayıcı</h1>
-            </div>
-
-            <div class="calc-content">
-                <label>Hizmet Türü</label>
-                <select id="service" onchange="showBox()" style="width: 100%; margin-bottom: 20px;">
-                    <option value="">-- Hizmet Seçiniz --</option>
-                    <option value="home">Ev Temizliği</option>
-                    <option value="office">Ofis Temizliği</option>
-                    <option value="apartment">Apartman Temizliği</option>
-                    <option value="construction">İnşaat Temizliği</option>
-                </select>
-
-                <!-- Ev Kutusu -->
-                <div class="box" id="homeBox">
-                    <label>Ev Büyüklüğü</label>
-                    <select id="homeType">
-                        <option value="3500">1+1</option>
-                        <option value="4800">3+1</option>
-                    </select>
-                    <button class="btn-calculate" onclick="calcSimple('home')">Hesapla</button>
-                    <div class="result" id="homeResult"></div>
-                    <button class="whatsapp-button" onclick="sendWhatsApp('home')"><i class="fa-brands fa-whatsapp"></i> WhatsApp'tan Randevu Al</button>
-                </div>
-
-                <!-- Apartman Kutusu -->
-                <div class="box" id="apartmentBox">
-                    <label>Daire Sayısı</label>
-                    <select id="apartmentType">
-                        <option value="2000">10 Daireye Kadar</option>
-                        <option value="3500">20 Daireye Kadar</option>
-                    </select>
-                    <button class="btn-calculate" onclick="calcSimple('apartment')">Hesapla</button>
-                    <div class="result" id="apartmentResult"></div>
-                    <button class="whatsapp-button" onclick="sendWhatsApp('apartment')"><i class="fa-brands fa-whatsapp"></i> WhatsApp'tan Randevu Al</button>
-                </div>
-
-                <!-- İnşaat Kutusu -->
-                <div class="box" id="constructionBox">
-                    <label>İnşaat Alanı (m²)</label>
-                    <input type="number" id="constructionSize" placeholder="m² giriniz">
-                    <button class="btn-calculate" onclick="calcConstruction()">Hesapla</button>
-                    <div class="result" id="constructionResult"></div>
-                    <button class="whatsapp-button" onclick="sendWhatsApp('construction')"><i class="fa-brands fa-whatsapp"></i> WhatsApp'tan Randevu Al</button>
-                </div>
-            </div>
-        </div>
+<div class="container">
+    <div class="header">
+        <h1>🧹 Fiyat Hesaplayıcı</h1>
     </div>
+
+    <label>Hizmet Türü</label>
+    <select id="service" onchange="showBox()">
+        <option value="">-- Seçiniz --</option>
+        <option value="home">Ev Temizliği</option>
+        <option value="building">Apartman Temizliği</option>
+        <option value="office">Ofis Temizliği</option>
+        <option value="renovation">İnşaat Sonrası Temizlik</option>
+    </select>
+
+    <!-- EV TEMİZLİĞİ -->
+    <div class="box" id="homeBox">
+        <h3>🏠 Ev Temizliği</h3>
+        <label>Ev Büyüklüğü</label>
+        <select id="homeType">
+            <option value="3500">1+0 / 1+1</option>
+            <option value="4000">2+1</option>
+            <option value="4800">3+1</option>
+        </select>
+        <label>Ek Hizmetler</label>
+        <div class="extras-line">
+            <label><input type="checkbox" id="extraCam"> Cam Temizliği</label>
+            <label><input type="checkbox" id="extraBalcony"> Balkon</label>
+        </div>
+        <button onclick="calcHome()">Hesapla</button>
+        <div class="result" id="homeResult"></div>
+        <button class="whatsapp-button" onclick="sendWhatsApp('home')">WhatsApp'tan Teklif Al</button>
+    </div>
+
+    <!-- APARTMAN TEMİZLİĞİ -->
+    <div class="box" id="buildingBox">
+        <h3>🏢 Apartman Temizliği</h3>
+        <label>Kat Sayısı</label>
+        <input type="number" id="floor" value="5">
+        <button onclick="calcBuilding()">Hesapla</button>
+        <div class="result" id="buildingResult"></div>
+        <button class="whatsapp-button" onclick="sendWhatsApp('building')">WhatsApp'tan Teklif Al</button>
+    </div>
+
+    <!-- OFİS TEMİZLİĞİ -->
+    <div class="box" id="officeBox">
+        <h3>💼 Ofis Temizliği</h3>
+        <label>Ofis Alanı (m²)</label>
+        <input type="number" id="m2" value="100">
+        <button onclick="calcOffice()">Hesapla</button>
+        <div class="result" id="officeResult"></div>
+        <button class="whatsapp-button" onclick="sendWhatsApp('office')">WhatsApp'tan Teklif Al</button>
+    </div>
+
+    <!-- İNŞAAT SONRASI -->
+    <div class="box" id="renovationBox">
+        <h3>🏗️ İnşaat Sonrası</h3>
+        <label>Alan (m²)</label>
+        <input type="number" id="rm2" value="100">
+        <button onclick="calcReno()">Hesapla</button>
+        <div class="result" id="renoResult"></div>
+        <button class="whatsapp-button" onclick="sendWhatsApp('renovation')">WhatsApp'tan Teklif Al</button>
+    </div>
+</div>
 
 <script>
     function showBox() {
         let v = document.getElementById("service").value;
         document.querySelectorAll(".box").forEach(b => b.classList.remove("active"));
-        if(v) document.getElementById(v + "Box")?.classList.add("active");
+        if(v) document.getElementById(v + "Box").classList.add("active");
     }
 
-    function calcSimple(type) {
-        let val = document.getElementById(type + "Type").value;
-        let resDiv = document.getElementById(type + "Result");
-        resDiv.innerHTML = 'Tahmini Fiyat: ' + val + ' TL';
-        resDiv.classList.add("show");
+    function formatPrice(p) { return Math.round(p).toLocaleString("tr-TR"); }
+
+    function showResult(id, price) {
+        document.getElementById(id).innerHTML = "Tahmini Fiyat: " + formatPrice(price) + " TL";
+        document.getElementById(id).classList.add("show");
     }
 
-    function calcConstruction() {
-        let size = document.getElementById("constructionSize").value;
-        let price = size * 20; // m² başı 20 TL örnek fiyat
-        let resDiv = document.getElementById("constructionResult");
-        resDiv.innerHTML = 'Tahmini Fiyat: ' + price + ' TL';
-        resDiv.classList.add("show");
+    function calcHome() {
+        let base = parseInt(document.getElementById("homeType").value);
+        let extra = document.getElementById("extraCam").checked ? 400 : 0;
+        showResult("homeResult", base + extra);
+    }
+
+    function calcBuilding() {
+        let floor = parseInt(document.getElementById("floor").value);
+        showResult("buildingResult", 1000 + (floor * 175));
+    }
+
+    function calcOffice() {
+        let m2 = parseInt(document.getElementById("m2").value);
+        showResult("officeResult", m2 * 35);
+    }
+
+    function calcReno() {
+        let m2 = parseInt(document.getElementById("rm2").value);
+        showResult("renoResult", m2 * 85);
     }
 
     function sendWhatsApp(type) {
         let price = document.getElementById(type + "Result").innerText;
-        let msg = encodeURIComponent("Merhaba, Claro Temizlik'ten " + type + " için " + price + " fiyat aldım, randevu oluşturmak istiyorum.");
+        let msg = encodeURIComponent("Merhaba, " + type + " hizmeti için " + price + " fiyat aldım, detayları konuşmak istiyorum.");
         window.open("https://wa.me/905352866434?text=" + msg, "_blank");
     }
 </script>
