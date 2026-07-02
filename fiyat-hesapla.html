@@ -8,14 +8,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Sayfa Özel Tasarımı */
         .calc-page-wrapper { padding: 60px 20px; background: #f8fafc; min-height: 80vh; display: flex; justify-content: center; align-items: flex-start; }
         .calc-container { background: white; width: 100%; max-width: 500px; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
         .calc-header h1 { color: #0b457f; font-size: 1.6rem; text-align: center; margin-bottom: 30px; }
         .box { display: none; flex-direction: column; gap: 15px; margin-top: 20px; }
         .box.active { display: flex; }
         label { font-weight: 600; color: #334155; }
-        select { padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 1rem; }
+        select, input { padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 1rem; }
         .btn-calculate { background: #0b457f; color: white; padding: 14px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: 0.3s; }
         .btn-calculate:hover { background: #073563; }
         .result { padding: 15px; background: #eefbff; border: 1px solid #17a2b8; border-radius: 10px; text-align: center; font-weight: 700; color: #0b457f; display: none; }
@@ -45,6 +44,8 @@
                     <option value="">-- Hizmet Seçiniz --</option>
                     <option value="home">Ev Temizliği</option>
                     <option value="office">Ofis Temizliği</option>
+                    <option value="apartment">Apartman Temizliği</option>
+                    <option value="construction">İnşaat Temizliği</option>
                 </select>
 
                 <!-- Ev Kutusu -->
@@ -54,9 +55,30 @@
                         <option value="3500">1+1</option>
                         <option value="4800">3+1</option>
                     </select>
-                    <button class="btn-calculate" onclick="calcHome()">Hesapla</button>
+                    <button class="btn-calculate" onclick="calcSimple('home')">Hesapla</button>
                     <div class="result" id="homeResult"></div>
                     <button class="whatsapp-button" onclick="sendWhatsApp('home')"><i class="fa-brands fa-whatsapp"></i> WhatsApp'tan Randevu Al</button>
+                </div>
+
+                <!-- Apartman Kutusu -->
+                <div class="box" id="apartmentBox">
+                    <label>Daire Sayısı</label>
+                    <select id="apartmentType">
+                        <option value="2000">10 Daireye Kadar</option>
+                        <option value="3500">20 Daireye Kadar</option>
+                    </select>
+                    <button class="btn-calculate" onclick="calcSimple('apartment')">Hesapla</button>
+                    <div class="result" id="apartmentResult"></div>
+                    <button class="whatsapp-button" onclick="sendWhatsApp('apartment')"><i class="fa-brands fa-whatsapp"></i> WhatsApp'tan Randevu Al</button>
+                </div>
+
+                <!-- İnşaat Kutusu -->
+                <div class="box" id="constructionBox">
+                    <label>İnşaat Alanı (m²)</label>
+                    <input type="number" id="constructionSize" placeholder="m² giriniz">
+                    <button class="btn-calculate" onclick="calcConstruction()">Hesapla</button>
+                    <div class="result" id="constructionResult"></div>
+                    <button class="whatsapp-button" onclick="sendWhatsApp('construction')"><i class="fa-brands fa-whatsapp"></i> WhatsApp'tan Randevu Al</button>
                 </div>
             </div>
         </div>
@@ -69,10 +91,18 @@
         if(v) document.getElementById(v + "Box")?.classList.add("active");
     }
 
-    function calcHome() {
-        let val = document.getElementById("homeType").value;
-        let resDiv = document.getElementById("homeResult");
+    function calcSimple(type) {
+        let val = document.getElementById(type + "Type").value;
+        let resDiv = document.getElementById(type + "Result");
         resDiv.innerHTML = 'Tahmini Fiyat: ' + val + ' TL';
+        resDiv.classList.add("show");
+    }
+
+    function calcConstruction() {
+        let size = document.getElementById("constructionSize").value;
+        let price = size * 20; // m² başı 20 TL örnek fiyat
+        let resDiv = document.getElementById("constructionResult");
+        resDiv.innerHTML = 'Tahmini Fiyat: ' + price + ' TL';
         resDiv.classList.add("show");
     }
 
