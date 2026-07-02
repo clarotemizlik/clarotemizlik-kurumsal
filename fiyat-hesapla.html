@@ -4,14 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ücretsiz Fiyat Hesapla | Claro Temizlik</title>
-    <!-- style.css üzerinden ortak tasarımı kullanmaya devam ediyoruz -->
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Sayfa Özel Tasarımı */
+        .calc-page-wrapper { padding: 60px 20px; background: #f8fafc; min-height: 80vh; display: flex; justify-content: center; align-items: flex-start; }
+        .calc-container { background: white; width: 100%; max-width: 500px; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .calc-header h1 { color: #0b457f; font-size: 1.6rem; text-align: center; margin-bottom: 30px; }
+        .box { display: none; flex-direction: column; gap: 15px; margin-top: 20px; }
+        .box.active { display: flex; }
+        label { font-weight: 600; color: #334155; }
+        select { padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 1rem; }
+        .btn-calculate { background: #0b457f; color: white; padding: 14px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .btn-calculate:hover { background: #073563; }
+        .result { padding: 15px; background: #eefbff; border: 1px solid #17a2b8; border-radius: 10px; text-align: center; font-weight: 700; color: #0b457f; display: none; }
+        .result.show { display: block; }
+        .whatsapp-button { background: #25d366; color: white; padding: 12px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; text-decoration: none; text-align: center; margin-top: 10px; }
+    </style>
 </head>
 <body>
 
-    <!-- NAVBAR (Tüm sayfalarla aynı) -->
     <nav class="claro-navbar">
         <a href="index.html" class="navbar-logo"><img src="claro-logo.png" alt="Claro" class="site-logo"></a>
         <div class="nav-menu">
@@ -20,7 +33,6 @@
         <div class="nav-right"><a href="fiyat-hesapla.html" class="nav-btn">Ücretsiz Fiyat Hesapla</a></div>
     </nav>
 
-    <!-- HESAPLAMA ALANI (Sadeleştirilmiş) -->
     <div class="calc-page-wrapper">
         <div class="calc-container">
             <div class="calc-header">
@@ -29,13 +41,13 @@
 
             <div class="calc-content">
                 <label>Hizmet Türü</label>
-                <select id="service" onchange="showBox()">
-                    <option value="">-- Seçiniz --</option>
+                <select id="service" onchange="showBox()" style="width: 100%; margin-bottom: 20px;">
+                    <option value="">-- Hizmet Seçiniz --</option>
                     <option value="home">Ev Temizliği</option>
                     <option value="office">Ofis Temizliği</option>
                 </select>
 
-                <!-- Ev Kutusu (Örnek: İhtiyaç fazlası kutuları buradan silebilirsin) -->
+                <!-- Ev Kutusu -->
                 <div class="box" id="homeBox">
                     <label>Ev Büyüklüğü</label>
                     <select id="homeType">
@@ -44,34 +56,31 @@
                     </select>
                     <button class="btn-calculate" onclick="calcHome()">Hesapla</button>
                     <div class="result" id="homeResult"></div>
-                    <button class="whatsapp-button" onclick="sendWhatsApp('home')">WhatsApp'tan Teklif Al</button>
+                    <button class="whatsapp-button" onclick="sendWhatsApp('home')"><i class="fa-brands fa-whatsapp"></i> WhatsApp'tan Randevu Al</button>
                 </div>
-
-                <!-- Diğer box'lar da aynı sadelikte eklenebilir -->
             </div>
         </div>
     </div>
 
 <script>
-// Sadece aktif olan fonksiyonları tutuyoruz
-function showBox() {
-    let v = document.getElementById("service").value;
-    document.querySelectorAll(".box").forEach(b => b.classList.remove("active"));
-    document.getElementById(v + "Box")?.classList.add("active");
-}
+    function showBox() {
+        let v = document.getElementById("service").value;
+        document.querySelectorAll(".box").forEach(b => b.classList.remove("active"));
+        if(v) document.getElementById(v + "Box")?.classList.add("active");
+    }
 
-function calcHome() {
-    // Hesaplama mantığı burada kalıyor
-    let total = parseFloat(document.getElementById("homeType").value);
-    document.getElementById("homeResult").innerHTML = 'Tahmini Fiyat: ' + total + ' TL';
-    document.getElementById("homeResult").classList.add("show");
-}
+    function calcHome() {
+        let val = document.getElementById("homeType").value;
+        let resDiv = document.getElementById("homeResult");
+        resDiv.innerHTML = 'Tahmini Fiyat: ' + val + ' TL';
+        resDiv.classList.add("show");
+    }
 
-function sendWhatsApp(type) {
-    let price = document.getElementById(type + "Result").innerText;
-    let msg = encodeURIComponent("Merhaba, " + type + " için " + price + " fiyat aldım, randevu istiyorum.");
-    window.open("https://wa.me/905352866434?text=" + msg, "_blank");
-}
+    function sendWhatsApp(type) {
+        let price = document.getElementById(type + "Result").innerText;
+        let msg = encodeURIComponent("Merhaba, Claro Temizlik'ten " + type + " için " + price + " fiyat aldım, randevu oluşturmak istiyorum.");
+        window.open("https://wa.me/905352866434?text=" + msg, "_blank");
+    }
 </script>
 </body>
 </html>
