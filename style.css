@@ -19,8 +19,27 @@ body { color: var(--text-dark); }
 .navbar-logo img { height: 60px; width: auto; display: block; }
 .nav-menu { display: flex; gap: 30px; }
 .nav-link { color: var(--primary-blue); font-weight: 600; text-decoration: none; font-size: 0.9rem; }
-.nav-btn { background: var(--turq-blue); color: white; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: 600; }
+/* Navbar Fiyat Hesapla Butonu */
+.nav-btn {
+    background: #17a2b8; /* Turkuaz/Mavi tonu */
+    color: #ffffff;
+    padding: 10px 22px;
+    border-radius: 50px; /* Tam yuvarlak köşeler */
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    display: inline-block;
+}
 
+.nav-btn:hover {
+    background: #ffffff;
+    color: #17a2b8;
+    border-color: #17a2b8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(23, 162, 184, 0.2);
+}
 /* --- HERO (Giriş Bölümü) --- */
 .hero-section { min-height: 80vh; display: flex; align-items: center; background: #f8fafc; padding: 60px 0; }
 .hero-container { display: flex; align-items: center; gap: 50px; }
