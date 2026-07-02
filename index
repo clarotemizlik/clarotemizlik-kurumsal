@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claro Temizlik | Profesyonel Temizlikte Güvenilir Çözüm Ortağınız</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="claro-navbar">
+        <a href="#" class="navbar-logo">
+            <img src="claro-logo.png" alt="Claro Temizlik" class="site-logo">
+        </a>
+        <div class="nav-menu">
+            <a href="#anasayfa" class="nav-link">ANA SAYFA</a>
+            <a href="#hakkimizda" class="nav-link">HAKKIMIZDA</a>
+            <a href="#hizmetler" class="nav-link">HİZMETLER</a>
+            <a href="#iletisim" class="nav-link">İLETİŞİM</a>
+        </div>
+        <div class="nav-right">
+            <a href="fiyat-hesapla.html" class="btn-main">Ücretsiz Fiyat Hesapla</a>
+        </div>
+    </nav>
+
+    <!-- HERO BÖLÜMÜ -->
+    <header id="anasayfa" class="hero-section">
+        <div class="container hero-container">
+            <div class="hero-left">
+                <img src="claro-logo.png" alt="Claro Temizlik" class="hero-logo-circle">
+                <h1 class="hero-title">Profesyonel Temizlikte<br>Güvenilir Çözüm Ortağınız</h1>
+                <h2 class="hero-subtitle">Mis gibi ev, iç rahatlığı</h2>
+                <p class="hero-description">Claro Temizlik; ev, ofis ve apartman temizliği hizmetlerinde profesyonel ekibiyle hijyenik, güvenilir ve kaliteli çözümler sunar.</p>
+                <div class="hero-buttons">
+                    <a href="fiyat-hesapla.html" class="btn btn-primary">Fiyat Hesapla</a>
+                    <a href="https://wa.me/905352866434" target="_blank" class="btn btn-whatsapp">
+                        <i class="fa-brands fa-whatsapp"></i> WhatsApp'tan Yazın
+                    </a>
+                </div>
+            </div>
+            <div class="hero-right">
+                <img src="hero-clean.webp" alt="Profesyonel temizlik hizmeti" class="hero-image">
+            </div>
+        </div>
+    </header>
+
+    <!-- Buraya diğer bölümlerini (Hakkımızda, Hizmetler, vb.) index.html dosyasındaki gibi ekleyebilirsin -->
+
+</body>
+</html>
